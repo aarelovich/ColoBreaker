@@ -1,5 +1,6 @@
 package org.colobreaker;
 
+import android.content.Context;
 import android.graphics.Color;
 
 import java.util.ArrayList;
@@ -14,11 +15,11 @@ public class GameScreen extends Screen {
     private SolutionDisplay solution;
     private SolutionCheckList solutionChecks;
     private NewGameButton newGameButton;
-
+    private SettingsButton settings;
     private boolean autoSolveOnce;
 
-    public GameScreen(int W, int H, ScreenControllerComm comm, UIElement.AnimationInterface ai) {
-        super(W, H, comm, ai);
+    public GameScreen(int W, int H, Context context, ScreenControllerComm comm, UIElement.AnimationInterface ai) {
+        super(W, H, context ,comm, ai);
 
         this.autoSolveOnce = false;
 
@@ -62,6 +63,14 @@ public class GameScreen extends Screen {
         this.newGameButton = new NewGameButton(this.upArrowButton.getBoundingBox().left,this.upArrowButton.getBoundingBox().top,this.upArrowButton.getBoundingBox().width(), this.upArrowButton.getBoundingBox().height(),null);
         this.elements.add(this.newGameButton);
 
+        // Making the settings button
+        float hSettings = this.playedSolution.getBoundingBox().height();
+        float wSettings = resultBorderWidth*0.7f;
+        float xSettings = (resultBorderWidth - wSettings)/2.0f;
+        float ySettings = this.playedSolution.getBoundingBox().top;
+        this.settings = new SettingsButton(xSettings,ySettings,wSettings,hSettings,null);
+        this.elements.add(this.settings);
+
         // Making the solution display. This should always be at the end.
         float hBanner = H*0.15f;
         hBanner = topMargin;
@@ -74,8 +83,8 @@ public class GameScreen extends Screen {
     }
 
     public void newGame(){
-        int ncolors  = 7; // These two values should come from difficulty selection.
-        int codeSize = 5;
+        int ncolors  = Preferences.GetAsInt(this.context,Preferences.KEY_COLORS,6);
+        int codeSize = Preferences.GetAsInt(this.context,Preferences.KEY_CODE_SIZE,4);
 
         this.board.clearBoard();
         this.playedSolution.setRowSize(codeSize);
@@ -146,6 +155,9 @@ public class GameScreen extends Screen {
         }
         else if (code == Utils.TOUCH_CODE_NEW_GAME){
             this.newGame();
+        }
+        else if (code == Utils.TOUCH_CODE_SETTINGS){
+            this.commUp.sendMessageScreenController(Utils.SCREEN_CHANGE);
         }
         return code;
     }

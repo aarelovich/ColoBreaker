@@ -46,8 +46,12 @@ public class ScreenController extends View implements UIElement.AnimationInterfa
         this.soundPlop = this.loadMediaPlayerFile("check_solution.wav");
 
         // Adding the game screen.
-        GameScreen gs = new GameScreen(width,height,this,this);
+        GameScreen gs = new GameScreen(width,height,getContext(), this,this);
         this.screens.add(gs);
+
+        // Adding the setting screen.
+        SettingsScreen ss = new SettingsScreen(width,height,getContext(),this,this);
+        this.screens.add(ss);
 
         this.switchScreen(0);
 
@@ -155,8 +159,16 @@ public class ScreenController extends View implements UIElement.AnimationInterfa
             this.invalidate();
         }
         else if (messageCode == Utils.SCREEN_CHANGE_SOUND){
-            // TODO: Check Settings to see if sound is on or off.
-            this.soundON = true;
+            int sound = Preferences.GetAsInt(getContext(),Preferences.KEY_SOUND,0);
+            if (sound == 1) {
+                System.err.println("Enabling Sound");
+                this.soundON = true;
+            }
+            else this.soundON = false;
+        }
+        else if (messageCode == Utils.SCREEN_CHANGE){
+            if (this.activeScreen == 0) this.switchScreen(1);
+            else this.switchScreen(0);
         }
     }
 

@@ -53,8 +53,10 @@ public class ColorSelector extends UIElement {
         if (this.currentlySelectedColor < 0) return -1;
         if (this.currentlySelectedColor >= this.colorsToSelect.size()) return -1;
         int color = this.colorsToSelect.get(this.currentlySelectedColor).getColorCode();
-        this.colorsToSelect.get(this.currentlySelectedColor).setSelected(false);
-        this.currentlySelectedColor = -1;
+        // These two lines below deselect the color after one use. Better to just let the user
+        // Deselect it by selecting another color.
+        // this.colorsToSelect.get(this.currentlySelectedColor).setSelected(false);
+        // this.currentlySelectedColor = -1;
         return color;
     }
 

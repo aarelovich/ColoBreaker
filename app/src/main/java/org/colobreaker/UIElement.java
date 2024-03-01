@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 
 public abstract class UIElement {
 
@@ -21,11 +22,27 @@ public abstract class UIElement {
     protected RectF boundingBox;
     protected AnimationInterface animationInterface;
     protected boolean visible;
+    protected boolean useSystemFont;
 
     public UIElement(float x, float y, float w, float h, AnimationInterface ai){
         this.boundingBox = new RectF(x,y,x + w, y+h);
         this.animationInterface = ai;
         this.visible = true;
+        this.useSystemFont = true;
+    }
+
+    public void setUseOfSystemFont(boolean enable) {
+        this.useSystemFont = enable;
+    }
+
+    protected Typeface getTypeface(boolean bold){
+        if (this.useSystemFont){
+            if (bold) return Typeface.create("",Typeface.BOLD);
+            else return Typeface.create("",Typeface.NORMAL);
+        }
+        else {
+            return Utils.GetFont();
+        }
     }
 
     public boolean isCoordinateInElement(int x, int y){

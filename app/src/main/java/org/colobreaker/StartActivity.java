@@ -26,6 +26,7 @@ public class StartActivity extends Activity {
         // We need to do this first.
         Utils.InitColorList();
         Utils.InitGlobalDimension(width,height);
+        Utils.LoadTypeFace(getAssets());
 
         screenController = new ScreenController(this,width,height);
         setContentView(screenController);

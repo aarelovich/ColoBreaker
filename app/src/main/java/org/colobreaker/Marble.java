@@ -112,10 +112,10 @@ public class Marble extends UIElement {
             paint.setShader(this.aura);
             canvas.drawCircle(this.boundingBox.centerX(),this.boundingBox.centerY(),this.R,paint);
             rToUse =  this.R*0.7f;
-            System.err.println("SELECTED MARBLE " + this.name + ": " + this.boundingBox + ". Drawn R: " + rToUse);
+            //System.err.println("SELECTED MARBLE " + this.name + ": " + this.boundingBox + ". Drawn R: " + rToUse);
         }
         else {
-            System.err.println("REGULAR MARBLE " + this.name + ": " + this.boundingBox + ". Drawn R: " + rToUse);
+            //System.err.println("REGULAR MARBLE " + this.name + ": " + this.boundingBox + ". Drawn R: " + rToUse);
         }
 
         // Create a radial gradient for the sphere's shading

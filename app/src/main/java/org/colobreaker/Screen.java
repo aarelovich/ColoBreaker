@@ -1,6 +1,7 @@
 package org.colobreaker;
 
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -18,6 +19,7 @@ public class Screen {
     protected int screenWidth;
     protected int screenHeight;
     protected int activeElement;
+    protected Context context;
     protected List<UIElement> elements;
     protected ScreenControllerComm commUp;
     protected UIElement.AnimationInterface animationInterface;
@@ -26,7 +28,8 @@ public class Screen {
 
     }
 
-    public Screen(int W, int H, ScreenControllerComm comm, UIElement.AnimationInterface ai){
+    public Screen(int W, int H, Context context , ScreenControllerComm comm, UIElement.AnimationInterface ai){
+        this.context = context;
         this.isActive = false;
         this.screenWidth = W;
         this.screenHeight = H;
